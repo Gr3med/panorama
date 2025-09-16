@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استمارة استبيان | فندق بانوراما عدن</title>
+    <!-- 1. إضافة ملفات CSS و JS الخاصة بالمكتبة -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-color: #C2A541; --secondary-color: #d4a75c; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 800px; margin: auto; background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header img { max-width: 180px; }
+        .header h1 { color: var(--primary-color); font-size: 24px; margin: 10px 0 5px; }
+        .header p { color: #555; font-size: 16px; margin: 0; }
+        .date-section { text-align: right; margin-bottom: 20px; padding-right: 10px; font-weight: bold; }
+        .intro-text { font-size: 16px; line-height: 1.6; margin-bottom: 25px; }
+        .rating-group { display: flex; align-items: center; justify-content: space-between; padding: 15px 10px; border-bottom: 1px solid #f0f0f0; }
+        .rating-group:last-of-type { border-bottom: none; }
+        .rating-group .question { font-size: 16px; font-weight: 500; flex-basis: 50%; padding-left: 10px; }
+        .rating-options { display: flex; justify-content: space-around; flex-basis: 50%; }
+        .rating-options div { display: flex; align-items: center; }
+        .rating-options input[type="radio"] { margin-left: 8px; transform: scale(1.2); cursor: pointer; }
+        .form-group { margin-top: 20px; }
+        .form-group label { font-weight: 700; display: block; margin-bottom: 8px; }
+        .form-group label span.optional { font-weight: 400; color: #888; font-size: 14px; }
+        input[type="text"], input[type="tel"], input[type="email"], select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        textarea { resize: vertical; min-height: 90px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 25px; }
+        .submit-btn { width: 100%; grid-column: 1 / -1; background-color: var(--primary-color); color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: 700; margin-top: 15px; }
+        .message-area { text-align: center; font-weight: bold; padding: 12px; border-radius: 8px; margin-top: 20px; display: none; }
+        .message-area.success { background-color: #e9f7ef; color: #28a745; }
+        .message-area.error { background-color: #f8d7da; color: #dc3545; }
+
+        /* --- 2. تخصيص أنماط المكتبة --- */
+        .iti { width: 100%; direction: ltr; } /* المكتبة تعمل بشكل أفضل مع LTR */
+        .iti__country-list { text-align: right; } /* جعل أسماء الدول تبدأ من اليمين */
+
+        @media (max-width: 700px) {
+            .container { padding: 20px; }
+            .rating-group { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .rating-group .question { flex-basis: 100%; }
+            .rating-options { width: 100%; flex-basis: 100%; justify-content: space-between; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+        <img src="logo.jpg" alt="Panorama Aden Logo">
+        <h1>مرحباً بكم في غرف وأجنحة فندق بانوراما عدن</h1>
+        <p>استمارة إستبيان</p>
+    </div>
+    
+    <div class="date-section">
+        <label for="date">التاريخ: </label>
+        <span id="date-display"></span>
+    </div>
+
+    <form id="evaluationForm">
+      <input type="hidden" id="date" name="date">
+      <p class="intro-text">نرجو التكرم بإبداء آرائكم حول الخدمة المقدمة لكم من قبلنا وذلك حتى يتسنى لنا تقديم أفضل خدمة لكم...
+للاستفادة من آرائكم نرجو التكرم بوضع إشارة أمام التقدير المناسب.</p>
+
+      <!-- Rating Sections -->
+      <div class="rating-group"><label class="question">1. مستوى الخدمة الفعالة في الانترنت</label><div class="rating-options"><div><input type="radio" name="internet" value="5" required> ممتاز</div><div><input type="radio" name="internet" value="3"> جيد</div><div><input type="radio" name="internet" value="1"> ضعيف</div></div></div>
+      <div class="rating-group"><label class="question">2. مستوى الصيانة والأجهزة الإلكترونية</label><div class="rating-options"><div><input type="radio" name="maintenance" value="5" required> ممتاز</div><div><input type="radio" name="maintenance" value="3"> جيد</div><div><input type="radio" name="maintenance" value="1"> ضعيف</div></div></div>
+      <div class="rating-group"><label class="question">3. مستوى خدمة قسم الاستقبال</label><div class="rating-options"><div><input type="radio" name="reception" value="5" required> ممتاز</div><div><input type="radio" name="reception" value="3"> جيد</div><div><input type="radio" name="reception" value="1"> ضعيف</div></div></div>
+      <div class="rating-group"><label class="question">4. مستوى جاهزية دورة المياه</label><div class="rating-options"><div><input type="radio" name="bathroom" value="5" required> ممتاز</div><div><input type="radio" name="bathroom" value="3"> جيد</div><div><input type="radio" name="bathroom" value="1"> ضعيف</div></div></div>
+      <div class="rating-group"><label class="question">5. مستوى خدمة المغسلة</label><div class="rating-options"><div><input type="radio" name="laundry" value="5" required> ممتاز</div><div><input type="radio" name="laundry" value="3"> جيد</div><div><input type="radio" name="laundry" value="1"> ضعيف</div></div></div>
+      <div class="rating-group"><label class="question">6. مستوى خدمة الحراسة الأمنية</label><div class="rating-options"><div><input type="radio" name="security" value="5" required> ممتاز</div><div><input type="radio" name="security" value="3"> جيد</div><div><input type="radio" name="security" value="1"> ضعيف</div></div></div>
+      <div class="rating-group"><label class="question">7. مستوى الخدمات في الميني ماركت</label><div class="rating-options"><div><input type="radio" name="minimarket" value="5" required> ممتاز</div><div><input type="radio" name="minimarket" value="3"> جيد</div><div><input type="radio" name="minimarket" value="1"> ضعيف</div></div></div>
+      <div class="rating-group"><label class="question">8. مستوى الخدمة في صالة الاستقبال</label><div class="rating-options"><div><input type="radio" name="lobby" value="5" required> ممتاز</div><div><input type="radio" name="lobby" value="3"> جيد</div><div><input type="radio" name="lobby" value="1"> ضعيف</div></div></div>
+      <div class="rating-group"><label class="question">9. مستوى الخدمة في المطعم والكافيهات</label><div class="rating-options"><div><input type="radio" name="restaurant" value="5" required> ممتاز</div><div><input type="radio" name="restaurant" value="3"> جيد</div><div><input type="radio" name="restaurant" value="1"> ضعيف</div></div></div>
+      <div class="rating-group"><label class="question">10. مستوى النظافة في الغرف والممرات</label><div class="rating-options"><div><input type="radio" name="cleanliness" value="5" required> ممتاز</div><div><input type="radio" name="cleanliness" value="3"> جيد</div><div><input type="radio" name="cleanliness" value="1"> ضعيف</div></div></div>
+      
+      <div class="form-group">
+        <label for="comments">مقترحاتكم لتطوير الخدمة... <span class="optional">(اختياري)</span></label>
+        <textarea id="comments" name="comments" placeholder="اكتب ملاحظاتك هنا..."></textarea>
+      </div>
+
+      <div class="footer-grid">
+         <div class="form-group"><label for="floor">الطابق <span style="color:red;">*</span></label><select id="floor" name="floor" required><option value="" disabled selected>-- اختر --</option><option value="1">الأول</option><option value="2">الثاني</option><option value="3">الثالث</option><option value="4">الرابع</option><option value="5">الخامس</option><option value="6">السادس</option></select></div>
+        <div class="form-group"><label for="roomNumber">رقم الغرفة <span style="color:red;">*</span></label><select id="roomNumber" name="roomNumber" required disabled><option value="" disabled selected>-- اختر الطابق أولاً --</option></select></div>
+        <div class="form-group"><label for="guestName">اسم النزيل <span class="optional">(اختياري)</span></label><input type="text" id="guestName" name="guestName"></div>
+        <div class="form-group"><label for="email">البريد الإلكتروني <span class="optional">(اختياري)</span></label><input type="email" id="email" name="email"></div>
+        
+        <!-- 3. حقل إدخال رقم الهاتف الجديد -->
+        <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="mobileNumber">رقم الجوال <span class="optional">(اختياري)</span></label>
+            <input type="tel" id="mobileNumber" name="mobileNumber">
+        </div>
+      </div>
+      
+      <div id="message-area" class="message-area"></div>
+      <button type="submit" id="submit-btn" class="submit-btn">إرسال الاستبيان</button>
+    </form>
+  </div>
+
+  <script>
+    // --- 4. تشغيل المكتبة والتعامل مع البيانات ---
+    const phoneInputField = document.querySelector("#mobileNumber");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        initialCountry: "ye", // تحديد اليمن كدولة افتراضية
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js",
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateDisplay = document.getElementById('date-display');
+        const dateInput = document.getElementById('date');
+        const floorSelect = document.getElementById('floor');
+        const roomSelect = document.getElementById('roomNumber');
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString('ar-EG', { year: 'numeric', month: 'numeric', day: 'numeric' });
+        dateDisplay.textContent = formattedDate;
+        dateInput.value = formattedDate;
+
+        floorSelect.addEventListener('change', function() {
+            const floor = parseInt(this.value, 10);
+            roomSelect.innerHTML = '<option value="" disabled selected>-- اختر الغرفة --</option>';
+            if (floor) {
+                roomSelect.disabled = false;
+                for (let i = 1; i <= 20; i++) {
+                    const roomNumber = floor * 100 + i;
+                    const option = new Option(`غرفة ${roomNumber}`, roomNumber);
+                    roomSelect.add(option);
+                }
+            } else { roomSelect.disabled = true; }
+        });
+
+        const API_URL = `${window.location.origin}/api/review`;
+        const form = document.getElementById('evaluationForm');
+        const submitBtn = document.getElementById('submit-btn');
+        const messageArea = document.getElementById('message-area');
+
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            if (!form.checkValidity()) { form.reportValidity(); return; }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'جاري الإرسال...';
+            messageArea.style.display = 'none';
+
+            try {
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+
+                // الحصول على الرقم الكامل مع المفتاح من المكتبة
+                if (phoneInput.getNumber()) {
+                    data.mobileNumber = phoneInput.getNumber();
+                } else {
+                    data.mobileNumber = ''; // إرسال قيمة فارغة إذا لم يتم إدخال رقم
+                }
+
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message || 'خطأ في الاتصال بالخادم.');
+                
+                messageArea.textContent = result.message;
+                messageArea.className = 'message-area success';
+                form.reset();
+                dateDisplay.textContent = formattedDate;
+                dateInput.value = formattedDate;
+                roomSelect.innerHTML = '<option value="" disabled selected>-- اختر الطابق أولاً --</option>';
+                roomSelect.disabled = true;
+                phoneInput.setCountry("ye"); // إعادة تعيين الدولة الافتراضية
+
+            } catch (error) {
+                messageArea.textContent = error.message;
+                messageArea.className = 'message-area error';
+            } finally {
+                messageArea.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'إرسال الاستبيان';
+            }
+        });
+    });
+  </script>
+</body>
+</html>
